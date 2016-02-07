@@ -1,4 +1,4 @@
-sbt-tslint
+sbt-tslint [![Build Status](https://travis-ci.org/joost-de-vries/sbt-tslint.png?branch=master)](https://travis-ci.org/joost-de-vries/sbt-tslint)
 ==========
 
 
