@@ -18,7 +18,7 @@ resolvers ++= Seq(
 
 libraryDependencies ++= Seq(
   "org.webjars.npm" % "typescript" % "1.7.5",
-  "org.webjars.npm" % "tslint" % "3.2.1",
+  "org.webjars.npm" % "tslint" % "3.3.0",
   "org.webjars.npm" % "minimatch" % "3.0.0",
   "org.webjars" % "strip-json-comments" % "1.0.2-1"
 )
