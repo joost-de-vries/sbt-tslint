@@ -8,6 +8,14 @@ licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
 
 scalaVersion := "2.10.4"
 
+resolvers ++= Seq(
+    "Typesafe Releases Repository" at "http://repo.typesafe.com/typesafe/releases/",
+    Resolver.url("sbt snapshot plugins", url("http://repo.scala-sbt.org/scalasbt/sbt-plugin-snapshots"))(Resolver.ivyStylePatterns),
+    Resolver.sonatypeRepo("snapshots"),
+    "Typesafe Snapshots Repository" at "http://repo.typesafe.com/typesafe/snapshots/",
+    Resolver.mavenLocal
+    )
+
 libraryDependencies ++= Seq(
   "org.webjars.npm" % "typescript" % "1.7.5",
   "org.webjars.npm" % "tslint" % "3.2.1",
