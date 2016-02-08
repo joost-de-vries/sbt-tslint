@@ -5,7 +5,7 @@ An sbt plugin for [tslint](http://palantir.github.io/tslint/). It will staticall
 
 To use this plugin use the addSbtPlugin command within your project's plugins.sbt (or as a global setting) i.e.:
 
-    addSbtPlugin("name.de-vries" % "sbt-tslint" % "0.9.0")
+    addSbtPlugin("name.de-vries" % "sbt-tslint" % "0.9.0_01")
 
 Your project's build file also needs to enable sbt-web plugins. For example with build.sbt:
 
