@@ -23,7 +23,7 @@ libraryDependencies ++= Seq(
   "org.webjars" % "strip-json-comments" % "1.0.2-1"
 )
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-js-engine" % "1.0.0")
+addSbtPlugin("com.typesafe.sbt" % "sbt-js-engine" % "1.1.3")
 
 publishMavenStyle := false
 bintrayRepository in bintray := "sbt-plugins"
