@@ -1,7 +1,7 @@
 sbtPlugin := true
 organization := "name.de-vries"
 name := "sbt-tslint"
-version := "0.9.0"
+version := "0.9.0_01"
 
 homepage := Some(url("https://github.com/joost-de-vries/sbt-tslint"))
 licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
@@ -9,12 +9,11 @@ licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
 scalaVersion := "2.10.4"
 
 resolvers ++= Seq(
-    "Typesafe Releases Repository" at "http://repo.typesafe.com/typesafe/releases/",
+    Resolver.typesafeRepo("releases"),
     Resolver.url("sbt snapshot plugins", url("http://repo.scala-sbt.org/scalasbt/sbt-plugin-snapshots"))(Resolver.ivyStylePatterns),
-    Resolver.sonatypeRepo("snapshots"),
-    "Typesafe Snapshots Repository" at "http://repo.typesafe.com/typesafe/snapshots/",
+    Resolver.sonatypeRepo("releases"),
     Resolver.mavenLocal
-    )
+)
 
 libraryDependencies ++= Seq(
   "org.webjars.npm" % "typescript" % "1.7.5",
