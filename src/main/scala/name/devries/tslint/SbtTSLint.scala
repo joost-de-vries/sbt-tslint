@@ -52,6 +52,8 @@ object SbtTSLint extends AutoPlugin {
       }: Option[File]
     },
     formattersDirectory := None,
+    rulesDirectories := None,
+    formatter := None,
     jsOptions := createJsOptions(
       Map("configuration" -> resolvedConfig.value.fold(JsObject()) { (file) =>
         val jsonString = IO.read(file)
