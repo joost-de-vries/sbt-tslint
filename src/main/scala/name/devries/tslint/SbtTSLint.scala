@@ -19,9 +19,9 @@ object SbtTSLint extends AutoPlugin {
     val tslint = TaskKey[Seq[File]]("tslint", "Perform Typescript linting.")
 
     val config = SettingKey[Option[File]]("tslint-config", "The location of a JSHint configuration file. Default is ./tslint.json")
-    val formatter = SettingKey[String]("tslint-formatter", "The tslint formatter. Default is: prose")
+    val formatter = SettingKey[Option[String]]("tslint-formatter", "The tslint formatter. Default is: prose")
     val formattersDirectory = SettingKey[Option[String]]("tslint-formatters-dir", "The directory for tslint formatters. Not required.")
-    val rulesDirectories = SettingKey[List[String]]("tslint-rules-dirs", "The zero or more directories of rules directories. Default is empty list.")
+    val rulesDirectories = SettingKey[Option[List[String]]]("tslint-rules-dirs", "The zero or more directories of rules directories. Default is empty list.")
     val resolvedConfig = TaskKey[Option[File]]("tslint-resolved-config", "The actual location of a tslint configuration file if present. If tslint-config is none then the task will seek a tslint.json in the project folder. If that's not found then tslint.json will be searched for in the user's home folder.")
 
     val tslintEslintRulesDir = SettingKey[String]("tslint-eslint-rules-dir","The directory of the eslint extension of tslint rules if the tslint-eslint-rules npm webjar is added as a dependency to the build")
@@ -51,18 +51,16 @@ object SbtTSLint extends AutoPlugin {
         }
       }: Option[File]
     },
-    formatter := "prose",
     formattersDirectory := None,
-    rulesDirectories := List.empty,
     jsOptions := createJsOptions(
       Map("configuration" -> resolvedConfig.value.fold(JsObject()) { (file) =>
         val jsonString = IO.read(file)
         JsonParser(jsonString).asJsObject
       },
-      "formatter" -> JsString(formatter.value)
+      "formatter" -> JsString(formatter.value.getOrElse("prose"))
       ),
       formattersDirectory.value.map(JsString(_)),
-      rulesDirectories.value.map(JsString(_))
+      rulesDirectories.value.getOrElse(List.empty).map(JsString(_))
     ).toString
 
 
@@ -82,7 +80,7 @@ object SbtTSLint extends AutoPlugin {
   }
 
   override def projectSettings = Seq(
-    tslintEslintRulesDir := ((nodeModuleDirectory in Assets).value / "tslint-eslint-rules" / "dist" /"rules").getCanonicalPath
+    tslintEslintRulesDir := ((webJarsNodeModulesDirectory in Assets).value / "tslint-eslint-rules" / "dist" /"rules").getCanonicalPath
 
   ) ++ inTask(tslint)(
     SbtJsTask.jsTaskSpecificUnscopedSettings ++

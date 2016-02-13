@@ -38,6 +38,8 @@
     //}
     var jsLintOptions =  JSON.parse(stripJsonComments(args[OPTIONS_ARG]));
 
+    //console.log("using",jsLintOptions)
+
     var sourceFileMappings = JSON.parse(args[SOURCE_FILE_MAPPINGS_ARG]);
     var sourceFilesToProcess = sourceFileMappings.length;
     var results = [];
