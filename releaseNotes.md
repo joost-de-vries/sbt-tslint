@@ -1,5 +1,8 @@
 #Release notes
 
+##0.9.1_01
+Fixes a bug in the tslint-eslint example.
+
 ##0.9.1
 This release adds
 - support for configuring different rules directories, different formatters, different formatter directories.  
