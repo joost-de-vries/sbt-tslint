@@ -30,18 +30,13 @@
     var OPTIONS_ARG = 4;
 
 
-    var jstaskOptions =  JSON.parse(stripJsonComments(args[OPTIONS_ARG]));
     //export interface ILinterOptions {
     //    configuration: any;
     //    formatter: string;
     //    formattersDirectory: string;
     //    rulesDirectory: string | string[];
     //}
-    var options = {
-            configuration: jstaskOptions.tslintConfiguration,
-            formatter: "prose"
-        };
-
+    var jsLintOptions =  JSON.parse(stripJsonComments(args[OPTIONS_ARG]));
 
     var sourceFileMappings = JSON.parse(args[SOURCE_FILE_MAPPINGS_ARG]);
     var sourceFilesToProcess = sourceFileMappings.length;
@@ -53,7 +48,7 @@
             if (e) {
                 console.error("Error while trying to read " + source, e);
             } else {
-                var linter = new Tslint(sourceFile, source,options);
+                var linter = new Tslint(sourceFile, source,jsLintOptions);
 
             //export interface LintResult {
             //        failureCount: number;
