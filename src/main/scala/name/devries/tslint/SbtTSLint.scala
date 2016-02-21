@@ -40,7 +40,6 @@ object SbtTSLint extends AutoPlugin {
 
   val tslintUnscopedSettings = Seq(
     includeFilter in tslint := GlobFilter("*.ts"),
-    config := None,
     resolvedConfig := {
       config.value.orElse {
         val tsLintConfig = "tslint.json"
@@ -57,9 +56,6 @@ object SbtTSLint extends AutoPlugin {
         }
       }: Option[File]
     },
-    formattersDirectory := None,
-    rulesDirectories := None,
-    formatter := None,
     jsOptions := createJsOptions(
       Map("configuration" -> resolvedConfig.value.fold(JsObject()) { (file) =>
         val jsonString = IO.read(file)
@@ -88,6 +84,10 @@ object SbtTSLint extends AutoPlugin {
   }
 
   override def projectSettings = Seq(
+    formattersDirectory := None,
+    rulesDirectories := None,
+    formatter := None,
+    config := None,
     tslintEslintRulesDir := ((webJarsNodeModulesDirectory in Assets).value / "tslint-eslint-rules" / "dist" /"rules").getCanonicalPath,
     tslintMsContribRulesDir := ((webJarsNodeModulesDirectory in Assets).value / "tslint-microsoft-contrib").getCanonicalPath
 
@@ -102,8 +102,8 @@ object SbtTSLint extends AutoPlugin {
         taskMessage in TestAssets := "Typescript test linting"
       )
   ) ++ SbtJsTask.addJsSourceFileTasks(tslint) ++ Seq(
-    tslint in Assets := (tslint in Assets).dependsOn(nodeModules in Assets).value,
-    tslint in TestAssets := (tslint in TestAssets).dependsOn(nodeModules in TestAssets).value
+    tslint in Assets := (tslint in Assets).dependsOn(webJarsNodeModules in Assets).value,
+    tslint in TestAssets := (tslint in TestAssets).dependsOn(webJarsNodeModules in TestAssets).value
   )
 
 }
