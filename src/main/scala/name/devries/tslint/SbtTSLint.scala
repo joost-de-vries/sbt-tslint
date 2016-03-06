@@ -59,7 +59,7 @@ object SbtTSLint extends AutoPlugin {
     jsOptions := createJsOptions(
       Map("configuration" -> resolvedConfig.value.fold(JsObject()) { (file) =>
         val jsonString = IO.read(file)
-        JsonParser(jsonString).asJsObject
+        JsonParser(removeComments(jsonString)).asJsObject
       },
       "formatter" -> JsString(formatter.value.getOrElse("prose"))
       ),
@@ -106,4 +106,8 @@ object SbtTSLint extends AutoPlugin {
     tslint in TestAssets := (tslint in TestAssets).dependsOn(webJarsNodeModules in TestAssets).value
   )
 
+  def removeComments(string: String) = {
+    // cribbed from http://blog.ostermiller.org/find-comment
+    string.replaceAll("""/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/""", "")
+  }
 }
