@@ -1,0 +1,4 @@
+# Lint an ts file and see that linting errors are reported.
+-> test
+$ exists target/forbidden-var-keyword
+

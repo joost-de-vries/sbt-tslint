@@ -1,12 +1,12 @@
 sbtPlugin := true
 organization := "name.de-vries"
 name := "sbt-tslint"
-version := "0.9.3"
+version := "0.9.4"
 
 homepage := Some(url("https://github.com/joost-de-vries/sbt-tslint"))
 licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
 
-scalaVersion := "2.10.4"
+scalaVersion := "2.10.6"
 
 resolvers ++= Seq(
     Resolver.typesafeRepo("releases"),
@@ -16,8 +16,8 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.webjars.npm" % "typescript" % "1.7.5",
-  "org.webjars.npm" % "tslint" % "3.3.0",
+  "org.webjars.npm" % "typescript" % "1.8.7",
+  "org.webjars.npm" % "tslint" % "3.6.0",
   "org.webjars.npm" % "minimatch" % "2.0.10",
   "org.webjars" % "strip-json-comments" % "1.0.2-1"
 )

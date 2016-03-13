@@ -8,7 +8,7 @@ The rules that will be checked in your project can be specified with a `tslint.j
 ## Installing
 To use this plugin use the addSbtPlugin command within your project's plugins.sbt (or as a global setting) i.e.:
 
-    addSbtPlugin("name.de-vries" % "sbt-tslint" % "0.9.3")
+    addSbtPlugin("name.de-vries" % "sbt-tslint" % "0.9.4")
 
 Your project's build file also needs to enable sbt-web plugins. For example with build.sbt:
 
@@ -29,6 +29,10 @@ See the plugins [setting keys](https://github.com/joost-de-vries/sbt-tslint/blob
 
 
 ## History
+
+### v0.9.4
+
+- upgrades to typescript 1.8.7 and tslint 3.6.0
 
 ### v0.9.3 
 
