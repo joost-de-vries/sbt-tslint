@@ -31,6 +31,8 @@ object SbtTSLint extends AutoPlugin {
       "The directory of the eslint extension of tslint rules if the tslint-eslint-rules npm webjar is added as a dependency to the build")
     val tslintMsContribRulesDir = SettingKey[String]("tslint-ms-contrib-rules-dir",
       "The directory of the tslint microsoft contrib rules if the tslint-microsoft-contrib npm webjar is added as a dependency to the build")
+    val ng2LintRulesDir = SettingKey[String]("tslint-ng2-lint-rules-dir",
+      "The directory of the angular2 lint rules if the codelyzer npm webjar is added as a dependency to the build")
   }
 
   import SbtWeb.autoImport._
@@ -89,7 +91,8 @@ object SbtTSLint extends AutoPlugin {
     formatter := None,
     config := None,
     tslintEslintRulesDir := ((webJarsNodeModulesDirectory in Assets).value / "tslint-eslint-rules" / "dist" /"rules").getCanonicalPath,
-    tslintMsContribRulesDir := ((webJarsNodeModulesDirectory in Assets).value / "tslint-microsoft-contrib").getCanonicalPath
+    tslintMsContribRulesDir := ((webJarsNodeModulesDirectory in Assets).value / "tslint-microsoft-contrib").getCanonicalPath,
+    ng2LintRulesDir := ((webJarsNodeModulesDirectory in Assets).value / "codelyzer").getCanonicalPath
 
   ) ++ inTask(tslint)(
     SbtJsTask.jsTaskSpecificUnscopedSettings ++

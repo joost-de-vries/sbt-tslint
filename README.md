@@ -16,23 +16,29 @@ Your project's build file also needs to enable sbt-web plugins. For example with
     
 If you want to use just the tslint rules you can use [this tslint.json](https://github.com/palantir/tslint/blob/master/docs/sample.tslint.json) as a starter.
 
-See here for the eslint rules added by using the [tslint-eslint-rules set](https://github.com/buzinas/tslint-eslint-rules)  
-You can use these rules by adding the following to your `build.sbt`.
+You can also use different linting rule sets. The plugin provides convenience settings for the following rule sets:
+- [tslint-eslint-rules set](https://github.com/buzinas/tslint-eslint-rules). Use setting `tsLintEsLintRulesDir`  
+- [tslint-mscontrib-rules](https://github.com/Microsoft/tslint-microsoft-contrib). Use setting `tslintMsContribRulesDir`  
+- [ng2 lint rules](https://github.com/mgechev/codelyzer). Use setting `ng2LintRulesDir`  
 
-    libraryDependencies ++=Seq(   "org.webjars.npm" % "tslint-eslint-rules" % "1.0.1")
-    dependencyOverrides += "org.webjars.npm" % "minimatch" % "2.0.10"
+To add f.i. tslint-eslint add the following to your `build.sbt`.
+
+    libraryDependencies ++=Seq(   "org.webjars.npm" % "tslint-eslint-rules" % "1.2.0")
 
     (rulesDirectories in tslint) := Some(List((tslintEslintRulesDir).value))
 
-See the plugins [setting keys](https://github.com/joost-de-vries/sbt-tslint/blob/master/src/main/scala/name/devries/tslint/SbtTSLint.scala) for configuration options. For example: the default formatter is "prose". 
+See the [setting keys](https://github.com/joost-de-vries/sbt-tslint/blob/master/src/main/scala/name/devries/tslint/SbtTSLint.scala) for configuration options. For example: the default formatter is "prose". 
 
 
 
 ## History
 
+### v0.9.6
+- add convenience setting for ng2 lint rules.
+
 ### v0.9.5
 
-- upgrades to typescript 1.8.10 and tslint 3.8.0 and tslint-eslint rules 
+- upgrades to typescript 1.8.10 and tslint 3.6.0
 - extended example tslint.json with eslint configurations
 
 ### v0.9.4
