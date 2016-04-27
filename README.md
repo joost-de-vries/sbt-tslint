@@ -38,7 +38,7 @@ See the [setting keys](https://github.com/joost-de-vries/sbt-tslint/blob/master/
 
 ### v0.9.5
 
-- upgrades to typescript 1.8.10 and tslint 3.6.0
+- upgrades to typescript 1.8.10 
 - extended example tslint.json with eslint configurations
 
 ### v0.9.4
