@@ -19,7 +19,7 @@ If you want to use just the tslint rules you can use [this tslint.json](https://
 See here for the eslint rules added by using the [tslint-eslint-rules set](https://github.com/buzinas/tslint-eslint-rules)  
 You can use these rules by adding the following to your `build.sbt`.
 
-    libraryDependencies ++=Seq(   "org.webjars.npm" % "tslint-eslint-rules" % "1.0.1")
+    libraryDependencies ++=Seq(   "org.webjars.npm" % "tslint-eslint-rules" % "1.2.0")
     dependencyOverrides += "org.webjars.npm" % "minimatch" % "2.0.10"
 
     (rulesDirectories in tslint) := Some(List((tslintEslintRulesDir).value))
@@ -32,7 +32,7 @@ See the plugins [setting keys](https://github.com/joost-de-vries/sbt-tslint/blob
 
 ### v0.9.5
 
-- upgrades to typescript 1.8.10 and tslint 3.8.0 and tslint-eslint rules 
+- upgrades to typescript 1.8.10 
 - extended example tslint.json with eslint configurations
 
 ### v0.9.4
