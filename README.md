@@ -33,6 +33,9 @@ See the [setting keys](https://github.com/joost-de-vries/sbt-tslint/blob/master/
 
 ## History
 
+### v0.9.7
+- fixes ng2 linting
+
 ### v0.9.6
 - add convenience setting for ng2 lint rules.
 

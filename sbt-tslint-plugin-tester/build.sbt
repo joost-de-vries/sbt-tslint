@@ -8,7 +8,7 @@ updateOptions := updateOptions.value.withCachedResolution(cachedResoluton = true
 libraryDependencies ++= Seq(
   "org.webjars.npm" % "tslint-eslint-rules" % "1.2.0",
   "org.webjars.npm" % "tslint-microsoft-contrib" % "2.0.3",
-  "org.webjars.npm" % "codelyzer" % "0.0.18"
+  "org.webjars.npm" % "codelyzer" % "0.0.19"
 )
 
 dependencyOverrides += "org.webjars.npm" % "minimatch" % "2.0.10"

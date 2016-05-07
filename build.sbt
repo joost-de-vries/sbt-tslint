@@ -1,7 +1,7 @@
 sbtPlugin := true
 organization := "name.de-vries"
 name := "sbt-tslint"
-version := "0.9.6"
+version := "0.9.7"
 
 homepage := Some(url("https://github.com/joost-de-vries/sbt-tslint"))
 licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
@@ -18,8 +18,9 @@ resolvers ++= Seq(
 libraryDependencies ++= Seq(
   "org.webjars.npm" % "typescript" % "1.8.10",
   "org.webjars.npm" % "tslint" % "3.6.0",
-  "org.webjars.npm" % "minimatch" % "2.0.10",
-  "org.webjars" % "strip-json-comments" % "1.0.2-1"
+  "org.webjars.npm" % "minimatch" % "3.0.0",
+  "org.webjars" % "strip-json-comments" % "1.0.2-1",
+  "org.webjars.npm" % "sprintf-js" % "1.0.3"  //used by codelyzer
 )
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-js-engine" % "1.1.3")
