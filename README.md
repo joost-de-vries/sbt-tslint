@@ -8,7 +8,7 @@ The rules that will be checked in your project can be specified with a `tslint.j
 ## Installing
 To use this plugin use the addSbtPlugin command within your project's plugins.sbt (or as a global setting) i.e.:
 
-    addSbtPlugin("name.de-vries" % "sbt-tslint" % "0.9.5")
+    addSbtPlugin("name.de-vries" % "sbt-tslint" % "3.13.0")
 
 Your project's build file also needs to enable sbt-web plugins. For example with build.sbt:
 
@@ -32,6 +32,10 @@ See the [setting keys](https://github.com/joost-de-vries/sbt-tslint/blob/master/
 
 
 ## History
+
+### v3.13.0
+- follows tslint version nr
+- adds support for ts 2 in combination with codelyzer
 
 ### v0.9.7
 - fixes ng2 linting
