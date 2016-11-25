@@ -1,12 +1,15 @@
 sbtPlugin := true
 organization := "name.de-vries"
 name := "sbt-tslint"
-version := "3.13.0"
+version := "3.5.1"
 
 homepage := Some(url("https://github.com/joost-de-vries/sbt-tslint"))
 licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
 
 scalaVersion := "2.10.6"
+
+incOptions := incOptions.value.withNameHashing(true)
+updateOptions := updateOptions.value.withCachedResolution(cachedResoluton = true)
 
 resolvers ++= Seq(
     Resolver.typesafeRepo("releases"),
@@ -16,14 +19,23 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.webjars.npm" % "typescript" % "2.0.0",
-  "org.webjars.npm" % "tslint" % "3.13.0",
+  "org.webjars" % "webjars-locator" % "0.32",
+  "org.webjars" % "webjars-locator-core" % "0.32",
+
+  "org.webjars.npm" % "typescript" % "2.0.10",
+  "org.webjars.npm" % "tslint" % "3.15.1",
+//  "org.webjars.npm" % "boxen" % "0.6.0",
+//  "org.webjars.npm" % "diff" % "3.0.1",
   "org.webjars.npm" % "minimatch" % "3.0.0",
   "org.webjars" % "strip-json-comments" % "1.0.2-1",
-  "org.webjars.npm" % "sprintf-js" % "1.0.3"  //used by codelyzer
+  "org.webjars.npm" % "sprintf-js" % "1.0.3",  //used by codelyzer,
+
+  "org.webjars" % "npm" % "3.9.3"
+
 )
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-js-engine" % "1.1.3")
+addSbtPlugin("com.typesafe.sbt" % "sbt-js-engine" % "1.1.4")
+addSbtPlugin("com.typesafe.sbt" % "sbt-web" % "1.4.0")
 
 publishMavenStyle := false
 bintrayRepository in bintray := "sbt-plugins"
@@ -32,4 +44,4 @@ bintrayVcsUrl := Some("git@github.com:joost-de-vries/sbt-tslint.git")
 
 scriptedSettings
 
-scriptedLaunchOpts <+= version apply { v => s"-Dproject.version=$v" }
+scriptedLaunchOpts += s"-Dproject.version=${version.value}"

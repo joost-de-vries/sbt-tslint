@@ -4,6 +4,4 @@ addSbtPlugin("com.gilt" % "sbt-dependency-graph-sugar" % "0.7.5-1")
 // set sbt to use eclipse aether instead of ivy
 addMavenResolverPlugin
 
-libraryDependencies <+= (sbtVersion) { sv =>
-  "org.scala-sbt" % "scripted-plugin" % sv
-}
+libraryDependencies += "org.scala-sbt" % "scripted-plugin" % sbtVersion.value
