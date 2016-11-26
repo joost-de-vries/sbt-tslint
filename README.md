@@ -34,7 +34,7 @@ See the [setting keys](https://github.com/joost-de-vries/sbt-tslint/blob/master/
 ## History
 
 ### v3.15.1
-- upgrades to tslint 3.15.1
+- upgrades to tslint 3.15.1 and typescript 2.0.10
 - upgrades webjars-locator, sbt-web and sbt-js-engine
 
 ### v3.13.0
