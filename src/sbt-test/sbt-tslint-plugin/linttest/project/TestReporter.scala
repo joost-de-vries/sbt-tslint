@@ -12,7 +12,7 @@ class TestLogger(target: File) extends Logger {
 
   def log(level: Level.Value, message: => String): Unit = {
     if (level == Level.Error) {
-      if (message.contains("forbidden var keyword")) {
+      if (message.contains("Forbidden 'var' keyword")) {
         IO.touch(target / "forbidden-var-keyword")
       }
     }
