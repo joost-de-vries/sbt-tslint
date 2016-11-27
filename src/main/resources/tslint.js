@@ -23,12 +23,12 @@
     var fs = require("fs");
     var typescript = require("typescript");
     var Tslint = require("tslint");
+    var TslintConfig = require("tslint/lib/configuration");
     var stripJsonComments = require("strip-json-comments");
     var path=require("path");
 
     var SOURCE_FILE_MAPPINGS_ARG = 2;
     var OPTIONS_ARG = 4;
-
 
     //export interface ILinterOptions {
     //    configuration: any;
@@ -37,6 +37,10 @@
     //    rulesDirectory: string | string[];
     //}
     var jsLintOptions =  JSON.parse(stripJsonComments(args[OPTIONS_ARG]));
+    if (jsLintOptions.configFile) {
+        var configFileDir = path.dirname(jsLintOptions.configFile) + "/";
+        jsLintOptions.configuration = TslintConfig.findConfiguration(jsLintOptions.configFile, configFileDir);
+    }
 
     //console.log("using",jsLintOptions)
 

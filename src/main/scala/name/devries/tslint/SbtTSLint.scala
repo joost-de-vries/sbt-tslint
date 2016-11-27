@@ -3,8 +3,7 @@ package name.devries.tslint
 import sbt._
 import sbt.Keys._
 import sbt.File
-import spray.json.{JsValue, JsString, JsonParser, JsObject}
-import scala.Some
+import spray.json.{JsValue, JsString, JsObject}
 import com.typesafe.sbt.jse.SbtJsTask
 import com.typesafe.sbt.web.SbtWeb
 
@@ -59,11 +58,9 @@ object SbtTSLint extends AutoPlugin {
       }: Option[File]
     },
     jsOptions := createJsOptions(
-      Map("configuration" -> resolvedConfig.value.fold(JsObject()) { (file) =>
-        val jsonString = IO.read(file)
-        JsonParser(removeComments(jsonString)).asJsObject
-      },
-      "formatter" -> JsString(formatter.value.getOrElse("prose"))
+      Map(
+        "configFile" -> JsString(resolvedConfig.value.map((file) => { file.getAbsolutePath }).getOrElse("")),
+        "formatter" -> JsString(formatter.value.getOrElse("prose"))
       ),
       formattersDirectory.value.map(JsString(_)),
       rulesDirectories.value.getOrElse(List.empty).map(JsString(_))
@@ -109,8 +106,4 @@ object SbtTSLint extends AutoPlugin {
     tslint in TestAssets := (tslint in TestAssets).dependsOn(webJarsNodeModules in TestAssets).value
   )
 
-  def removeComments(string: String) = {
-    // cribbed from http://blog.ostermiller.org/find-comment
-    string.replaceAll("""/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/""", "")
-  }
 }
