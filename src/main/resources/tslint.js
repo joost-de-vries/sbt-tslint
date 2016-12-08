@@ -22,7 +22,7 @@
     var console = require("console");
     var fs = require("fs");
     var typescript = require("typescript");
-    var Tslint = require("tslint");
+    var Tslint = require("linter");
     var TslintConfig = require("tslint/lib/configuration");
     var stripJsonComments = require("strip-json-comments");
     var path=require("path");
