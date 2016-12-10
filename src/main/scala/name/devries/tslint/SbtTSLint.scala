@@ -3,7 +3,8 @@ package name.devries.tslint
 import sbt._
 import sbt.Keys._
 import sbt.File
-import spray.json.{JsValue, JsString, JsObject}
+import spray.json._
+import DefaultJsonProtocol._
 import com.typesafe.sbt.jse.SbtJsTask
 import com.typesafe.sbt.web.SbtWeb
 
@@ -18,7 +19,7 @@ object SbtTSLint extends AutoPlugin {
     val tslint = TaskKey[Seq[File]]("tslint", "Perform Typescript linting.")
 
     val config = SettingKey[Option[File]]("tslint-config",
-      "The location of a JSHint configuration file. Default is ./tslint.json")
+      "The location of a tslint configuration file. Default is ./tslint.json")
     val formatter = SettingKey[Option[String]]("tslint-formatter", "The tslint formatter. Default is: prose")
     val formattersDirectory = SettingKey[Option[String]]("tslint-formatters-dir", "The directory for tslint formatters. Not required.")
     val rulesDirectories = SettingKey[Option[List[String]]]("tslint-rules-dirs",
@@ -32,6 +33,11 @@ object SbtTSLint extends AutoPlugin {
       "The directory of the tslint microsoft contrib rules if the tslint-microsoft-contrib npm webjar is added as a dependency to the build")
     val ng2LintRulesDir = SettingKey[String]("tslint-ng2-lint-rules-dir",
       "The directory of the angular2 lint rules if the codelyzer npm webjar is added as a dependency to the build")
+
+    val fixLintErrors = SettingKey[Boolean]("tslint-fix-lint-errors")
+
+    val tsConfig = SettingKey[File]("tslint-ts-config",
+      "The location of the tsconfig file. Default is ./tsconfig.json")
   }
 
   import SbtWeb.autoImport._
@@ -59,24 +65,21 @@ object SbtTSLint extends AutoPlugin {
     },
     jsOptions := createJsOptions(
       Map(
+        "tsConfigFile" -> JsString(tsConfig.value.getAbsolutePath),
         "configFile" -> JsString(resolvedConfig.value.map((file) => { file.getAbsolutePath }).getOrElse("")),
-        "formatter" -> JsString(formatter.value.getOrElse("prose"))
+        "formatter" -> JsString(formatter.value.getOrElse("prose")),
+        "fixLintErrors" -> JsBoolean(fixLintErrors.value)
       ),
       formattersDirectory.value.map(JsString(_)),
-      rulesDirectories.value.getOrElse(List.empty).map(JsString(_))
+      rulesDirectories.value
     ).toString
 
 
   )
 
-  private[this] def createJsOptions(acc:Map[String, JsValue],formattersDir:Option[JsString],rulesDirs:List[JsString]):JsObject={
-    val fdAsList=formattersDir match{
-      case None =>  List.empty
-      case Some(x) => List(x)
-    }
-
-    val extraOptions = List(fdAsList.map("formattersDirectory"-> _),
-      rulesDirs.map("rulesDirectory"-> _)
+  private[this] def createJsOptions(acc:Map[String, JsValue],formattersDir:Option[JsString],rulesDirs:Option[List[String]]):JsObject={
+    val extraOptions:Map[String,JsValue] = List(formattersDir.map("formattersDirectory"-> _),
+      rulesDirs.map("rulesDirectory"-> _.toJson)
     ).flatten.toMap
 
     JsObject(acc++extraOptions)
@@ -89,7 +92,9 @@ object SbtTSLint extends AutoPlugin {
     config := None,
     tslintEslintRulesDir := ((webJarsNodeModulesDirectory in Assets).value / "tslint-eslint-rules" / "dist" /"rules").getCanonicalPath,
     tslintMsContribRulesDir := ((webJarsNodeModulesDirectory in Assets).value / "tslint-microsoft-contrib").getCanonicalPath,
-    ng2LintRulesDir := ((webJarsNodeModulesDirectory in Assets).value / "codelyzer").getCanonicalPath
+    ng2LintRulesDir := ((webJarsNodeModulesDirectory in Assets).value / "codelyzer").getCanonicalPath,
+    fixLintErrors := false,
+    tsConfig := baseDirectory.value / "tsconfig.json"
 
   ) ++ inTask(tslint)(
     SbtJsTask.jsTaskSpecificUnscopedSettings ++

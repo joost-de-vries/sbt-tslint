@@ -21,48 +21,62 @@
     var args = process.argv;
     var console = require("console");
     var fs = require("fs");
-    var typescript = require("typescript");
-    var Tslint = require("linter");
+    var ts = require("typescript");
+    var Linter = require("tslint/lib/linter");
     var TslintConfig = require("tslint/lib/configuration");
     var stripJsonComments = require("strip-json-comments");
-    var path=require("path");
+    var path = require("path");
 
     var SOURCE_FILE_MAPPINGS_ARG = 2;
     var OPTIONS_ARG = 4;
 
-    //export interface ILinterOptions {
-    //    configuration: any;
-    //    formatter: string;
-    //    formattersDirectory: string;
-    //    rulesDirectory: string | string[];
-    //}
-    var jsLintOptions =  JSON.parse(stripJsonComments(args[OPTIONS_ARG]));
-    if (jsLintOptions.configFile) {
-        var configFileDir = path.dirname(jsLintOptions.configFile) + "/";
-        jsLintOptions.configuration = TslintConfig.findConfiguration(jsLintOptions.configFile, configFileDir);
-    }
+    // export interface ILinterOptions {
+    //     fix: boolean;
+    //     formatter?: string | Function;
+    //     formattersDirectory?: string;
+    //     rulesDirectory?: string | string[];
+    // }
+    var sbtTslintConfig = JSON.parse(stripJsonComments(args[OPTIONS_ARG]));
+    var linterOptions = {}
+    var configFileDir = path.dirname(sbtTslintConfig.configFile) + "/";
+    var configurationFile = TslintConfig.findConfiguration(sbtTslintConfig.configFile, configFileDir).results;
+    if (sbtTslintConfig.rulesDirectory) {
+        linterOptions.rulesDirectory = sbtTslintConfig.rulesDirectory;
 
-    //console.log("using",jsLintOptions)
+    }
+    if (sbtTslintConfig.formattersDirectory) {
+        linterOptions.formattersDirectory = sbtTslintConfig.formattersDirectory;
+    }
+    linterOptions.formatter = sbtTslintConfig.formatter;
+    linterOptions.fix = sbtTslintConfig.fixLintErrors;
+
+    //console.log("using", linterOptions);
 
     var sourceFileMappings = JSON.parse(args[SOURCE_FILE_MAPPINGS_ARG]);
     var sourceFilesToProcess = sourceFileMappings.length;
     var results = [];
     var problems = [];
+
+    var tsProgram = Linter.createProgram(sbtTslintConfig.tsConfigFile);
+    var linter = new Linter(linterOptions, tsProgram);
+
+
     sourceFileMappings.forEach(function (sourceFilePath) {
         var sourceFile = sourceFilePath[0];
         fs.readFile(sourceFile, "utf8", function (e, source) {
             if (e) {
                 console.error("Error while trying to read " + source, e);
             } else {
-                var linter = new Tslint(sourceFile, source,jsLintOptions);
 
-            //export interface LintResult {
-            //        failureCount: number;
-            //        failures: RuleFailure[];
-            //        format: string;
-            //        output: string;
-            //    }
-                var lintResult=linter.lint();
+                // export interface LintResult {
+                //        failureCount: number;
+                //        failures: RuleFailure[];
+                //        format: string;
+                //        output: string;
+                //    }
+                linter.lint(sourceFile, source, configurationFile);
+                var lintResult = linter.getResult();
+
                 var actualErrors = 0;
 
                 //export class RuleFailure {
@@ -73,14 +87,14 @@
                 //    private failure: string;
                 //    private ruleName: string;
 
-                    lintResult.failures.forEach(function (rf) {
+                lintResult.failures.forEach(function (rf) {
                     if (rf) {
                         problems.push({
                             message: rf.failure,
-                            severity:  "error",
-                            lineNumber: rf.startPosition.lineAndCharacter.line,
+                            severity: "error",
+                            lineNumber: rf.startPosition.lineAndCharacter.line+1,
                             characterOffset: rf.startPosition.lineAndCharacter.character - 1,
-                            lineContent: source.substring(rf.startPosition.position,rf.endPosition.position),
+                            lineContent: source.substring(rf.startPosition.position, rf.endPosition.position),
                             source: sourceFile
                         });
                         ++actualErrors;

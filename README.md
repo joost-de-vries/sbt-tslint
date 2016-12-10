@@ -8,7 +8,7 @@ The rules that will be checked in your project can be specified with a `tslint.j
 ## Installing
 To use this plugin use the addSbtPlugin command within your project's plugins.sbt (or as a global setting) i.e.:
 
-    addSbtPlugin("name.de-vries" % "sbt-tslint" % "3.15.1")
+    addSbtPlugin("name.de-vries" % "sbt-tslint" % "4.0.2-1")
 
 Your project's build file also needs to enable sbt-web plugins. For example with build.sbt:
 
@@ -23,7 +23,7 @@ You can also use different linting rule sets. The plugin provides convenience se
 
 To add f.i. tslint-eslint add the following to your `build.sbt`.
 
-    libraryDependencies ++=Seq(   "org.webjars.npm" % "tslint-eslint-rules" % "1.2.0")
+    libraryDependencies ++=Seq(   "org.webjars.npm" % "tslint-eslint-rules" % "3.1.0")
 
     (rulesDirectories in tslint) := Some(List((tslintEslintRulesDir).value))
 
@@ -32,6 +32,9 @@ See the [setting keys](https://github.com/joost-de-vries/sbt-tslint/blob/master/
 
 
 ## History
+
+### v4.0.2-1
+- upgrades to tslint 4.0.2 and typescript 2.1.1
 
 ### v3.15.1-1
 - fixes tslint 'extends' feature. tx [jsebrech](https://github.com/jsebrech)
