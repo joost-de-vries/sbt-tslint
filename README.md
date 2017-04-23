@@ -33,6 +33,9 @@ See the [setting keys](https://github.com/joost-de-vries/sbt-tslint/blob/master/
 
 ## History
 
+### v5.1.0
+- version upgrade
+
 ### v4.4.2
 - version upgrade
 
