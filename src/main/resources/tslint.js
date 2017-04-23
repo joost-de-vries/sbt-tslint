@@ -50,7 +50,9 @@
         linterOptions.formattersDirectory = sbtTslintConfig.formattersDirectory;
     }
     linterOptions.formatter = sbtTslintConfig.formatter;
-    linterOptions.fix = sbtTslintConfig.fixLintErrors;
+    if(sbtTslintConfig.fix){
+        linterOptions.fix = sbtTslintConfig.fixLintErrors;
+    }
 
     //console.log("using", linterOptions);
 
