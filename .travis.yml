@@ -1,11 +1,15 @@
+dist: trusty
 language: scala
 sudo: false
 cache:
   directories:
   - $HOME/.ivy2
+env:
+  - NODE_VERSION=6
 scala:
   - 2.10.4
 script: 
+  - nvm use $NODE_VERSION
   - sbt ++$TRAVIS_SCALA_VERSION scripted
 jdk:
   - openjdk7
