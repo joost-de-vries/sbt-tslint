@@ -33,6 +33,9 @@ See the [setting keys](https://github.com/joost-de-vries/sbt-tslint/blob/master/
 
 ## History
 
+### v4.4.2
+- version upgrade
+
 ### v4.0.2-1
 - upgrades to tslint 4.0.2 and typescript 2.1.1
 

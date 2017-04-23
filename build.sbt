@@ -1,7 +1,7 @@
 sbtPlugin := true
 organization := "name.de-vries"
 name := "sbt-tslint"
-version := "4.0.2-1"
+version := "4.4.2"
 
 homepage := Some(url("https://github.com/joost-de-vries/sbt-tslint"))
 licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
@@ -12,6 +12,7 @@ incOptions := incOptions.value.withNameHashing(true)
 updateOptions := updateOptions.value.withCachedResolution(cachedResoluton = true)
 
 resolvers ++= Seq(
+    Resolver.jcenterRepo,
     Resolver.typesafeRepo("releases"),
     Resolver.url("sbt snapshot plugins", url("http://repo.scala-sbt.org/scalasbt/sbt-plugin-snapshots"))(Resolver.ivyStylePatterns),
     Resolver.sonatypeRepo("releases"),
@@ -21,7 +22,7 @@ resolvers ++= Seq(
 libraryDependencies ++= Seq(
 
   "org.webjars.npm" % "typescript" % "2.1.1",
-  "org.webjars.npm" % "tslint" % "4.0.2",
+  "org.webjars.npm" % "tslint" % "4.4.2",
   "org.webjars.npm" % "minimatch" % "3.0.0",
   "org.webjars" % "strip-json-comments" % "1.0.2-1",
   "org.webjars.npm" % "sprintf-js" % "1.0.3"  //used by codelyzer,
