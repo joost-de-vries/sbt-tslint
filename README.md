@@ -35,6 +35,7 @@ See the [setting keys](https://github.com/joost-de-vries/sbt-tslint/blob/master/
 
 ### v5.1.0
 - version upgrade
+- support tslint.json#lintOptions
 
 ### v4.4.2
 - version upgrade

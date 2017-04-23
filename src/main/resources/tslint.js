@@ -40,9 +40,11 @@
     var linterOptions = {}
     var configFileDir = path.dirname(sbtTslintConfig.configFile) + "/";
     var configurationFile = TslintConfig.findConfiguration(sbtTslintConfig.configFile, configFileDir).results;
+    if(sbtTslintConfig.lintOptions){
+        linterOptions = sbtTslintConfig.lintOptions;
+    }
     if (sbtTslintConfig.rulesDirectory) {
         linterOptions.rulesDirectory = sbtTslintConfig.rulesDirectory;
-
     }
     if (sbtTslintConfig.formattersDirectory) {
         linterOptions.formattersDirectory = sbtTslintConfig.formattersDirectory;
