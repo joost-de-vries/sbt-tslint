@@ -37,8 +37,8 @@ dependencyOverrides ++= Set(
   "org.webjars" % "npm" % "3.9.3"
 )
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-js-engine" % "1.1.4")
-addSbtPlugin("com.typesafe.sbt" % "sbt-web" % "1.4.0")
+addSbtPlugin("com.typesafe.sbt" % "sbt-js-engine" % "1.2.1")
+addSbtPlugin("com.typesafe.sbt" % "sbt-web" % "1.4.1")
 
 publishMavenStyle := false
 bintrayRepository in bintray := "sbt-plugins"
