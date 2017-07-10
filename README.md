@@ -1,4 +1,4 @@
-#sbt-tslint [![Build Status](https://travis-ci.org/joost-de-vries/sbt-tslint.png?branch=master)](https://travis-ci.org/joost-de-vries/sbt-tslint)
+# sbt-tslint [![Build Status](https://travis-ci.org/joost-de-vries/sbt-tslint.png?branch=master)](https://travis-ci.org/joost-de-vries/sbt-tslint)
 
 An sbt plugin for [tslint](http://palantir.github.io/tslint/). It will statically check your typescript files for error prone code.
 By default linting occurs as part of your project's `tslint` task. Both src/main/assets/\*\*/\*.ts and
