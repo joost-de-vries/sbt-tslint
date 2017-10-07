@@ -2,7 +2,6 @@ import com.typesafe.sbt.web.Import.WebKeys._
 
 lazy val root = (project in file(".")).enablePlugins(SbtWeb)
 
-incOptions := incOptions.value.withNameHashing(true)
 updateOptions := updateOptions.value.withCachedResolution(cachedResoluton = true)
 
 libraryDependencies ++= Seq(
