@@ -7,7 +7,8 @@ cache:
   - $HOME/.sbt/boot/
 jdk: oraclejdk8
 env:
-  - NODE_VERSION=6
+  global:
+    - NODE_VERSION=6
   matrix:
     - TRAVIS_SBT_VERSION=0.13.16
     - TRAVIS_SBT_VERSION=1.0.1
